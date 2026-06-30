@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import joincloudLogo from "@/public/joincloud-logo.png";
 import { getBlogPost, blogPosts, type BlogSection } from "@/lib/blog-posts";
@@ -95,7 +96,7 @@ function RenderSection({ section }: { section: BlogSection }) {
 
 export default function BlogPost() {
   const params = useParams<{ slug: string }>();
-  const post = getBlogPost(params.slug ?? "");
+  const post = getBlogPost(params?.slug ?? "");
 
   useEffect(() => {
     if (!post) return;
@@ -219,7 +220,7 @@ export default function BlogPost() {
         <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
             <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <img src={joincloudLogo} alt="JoinCloud" className="h-8 w-auto object-contain" />
+              <Image src={joincloudLogo} alt="JoinCloud" className="h-8 w-auto object-contain" width={120} height={40} />
               <span className="text-xl font-semibold text-foreground">JoinCloud</span>
             </a>
             <Link
@@ -256,7 +257,7 @@ export default function BlogPost() {
       <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src={joincloudLogo} alt="JoinCloud" className="h-8 w-auto object-contain" />
+            <Image src={joincloudLogo} alt="JoinCloud" className="h-8 w-auto object-contain" width={120} height={40} />
             <span className="text-xl font-semibold text-foreground">JoinCloud</span>
           </a>
           <nav className="hidden md:flex items-center gap-6 text-sm">
@@ -450,7 +451,7 @@ export default function BlogPost() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <img src={joincloudLogo} alt="JoinCloud" className="h-6 w-auto object-contain" />
+              <Image src={joincloudLogo} alt="JoinCloud" className="h-6 w-auto object-contain" width={90} height={30} />
               <span className="text-lg font-semibold text-foreground">JoinCloud</span>
             </div>
             <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">

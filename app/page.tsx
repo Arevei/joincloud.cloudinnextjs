@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -937,10 +938,11 @@ function WhatJoinCloudIs() {
     <section className="border-t border-[#001C25] bg-[#00080A] overflow-hidden">
       {/* Hero image with overlaid text */}
       <div className="relative w-full" style={{ minHeight: '420px' }}>
-        <img
+        <Image
           src="/constellation.jpg"
           alt="Night sky with constellations"
-          className="w-full h-[420px] md:h-[520px] object-cover object-center"
+          fill
+          className="object-cover object-center"
           loading="lazy"
         />
         {/* Gradient overlays for text readability */}
