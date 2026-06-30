@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import joincloudLogo from "@/../public/joincloud-logo.png";
+import joincloudLogo from "@/public/joincloud-logo.png";
 import { getBlogPost, blogPosts, type BlogSection } from "@/lib/blog-posts";
 
 function formatDate(dateStr: string) {
