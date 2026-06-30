@@ -1175,7 +1175,6 @@ function FeedbackSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState<string | undefined>();
   const { toast } = useToast();
-  const [showDownloadButtons, setShowDownloadButtons] = useState(false);
 
   const feedbackMutation = useMutation({
     mutationFn: async (data: { message: string; name?: string; email?: string; phone?: string }) => {
@@ -1187,7 +1186,6 @@ function FeedbackSection() {
       });
     },
     onSuccess: () => {
-      setShowDownloadButtons(true);
       toast({
         title: "Thank you!",
         description: "Your feedback has been submitted. We appreciate your input!",
@@ -1297,34 +1295,6 @@ function FeedbackSection() {
                   </>
                 )}
               </Button>
-
-              {showDownloadButtons && (
-                <div className="mt-6 p-4 bg-[#0A1214] rounded-lg border border-[#001C25]">
-                  <p className="text-sm text-muted-foreground text-center mb-4">Thank you! Download JoinCloud Beta:</p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button
-                      asChild
-                      size="lg"
-                      className="bg-[#2FB7FF] hover:bg-[#2FB7FF]/90 text-black font-semibold"
-                    >
-                      <a href="https://github.com/vinay-kumar-shakyawar/joincloud/releases/download/v0.3.6/JoinCloud.Setup.0.3.6.exe" target="_blank" rel="noopener noreferrer">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download for Windows
-                      </a>
-                    </Button>
-                    <Button
-                      asChild
-                      size="lg"
-                      className="bg-[#2FB7FF] hover:bg-[#2FB7FF]/90 text-black font-semibold"
-                    >
-                      <a href="https://github.com/vinay-kumar-shakyawar/joincloud/releases/download/v0.3.6/JoinCloud-0.3.6-universal.dmg" target="_blank" rel="noopener noreferrer">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download for macOS
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              )}
             </form>
           </CardContent>
         </Card>
