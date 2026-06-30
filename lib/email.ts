@@ -1,7 +1,4 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 // Create nodemailer transporter
 const transporter = nodemailer.createTransport({

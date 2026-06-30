@@ -1,7 +1,3 @@
-import dotenv from "dotenv";
-
-dotenv.config();
-
 const SHEET_WAITLIST_URL = process.env.SHEET_WAITLIST_URL;
 const SHEET_FEEDBACK_URL = process.env.SHEET_FEEDBACK_URL;
 

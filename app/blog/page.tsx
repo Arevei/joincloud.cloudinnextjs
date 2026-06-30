@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect } from "react";
-import { Link } from "wouter";
-import joincloudLogo from "/joincloud-logo.png";
+import Link from "next/link";
+import joincloudLogo from "@/../public/joincloud-logo.png";
 import { blogPosts } from "@/lib/blog-posts";
 
 function formatDate(dateStr: string) {
