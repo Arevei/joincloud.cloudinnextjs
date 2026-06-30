@@ -9,14 +9,12 @@ export interface WaitlistData {
   name: string;
   email: string;
   profession: string;
-  phone?: string;
 }
 
 export interface FeedbackData {
   name: string;
   email: string;
   message: string;
-  phone?: string;
 }
 
 /**
@@ -35,7 +33,6 @@ export async function sendWaitlistToSheet(data: WaitlistData): Promise<boolean> 
           Name: data.name,
           Email: data.email,
           Profession: data.profession,
-          Phone: data.phone || "",
           "Sheet Name": "Waitlist",
           Timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
         },
@@ -78,7 +75,6 @@ export async function sendFeedbackToSheet(data: FeedbackData): Promise<boolean> 
           Name: data.name,
           Email: data.email,
           Message: data.message,
-          Phone: data.phone || "",
           "Sheet Name": "Feedback",
           Timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
         },

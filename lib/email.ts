@@ -97,7 +97,7 @@ const getUserConfirmationTemplate = (name: string) => {
 };
 
 // Admin notification email template for waitlist
-const getAdminWaitlistTemplate = (data: { name: string; email: string; profession: string; phone?: string }) => {
+const getAdminWaitlistTemplate = (data: { name: string; email: string; profession: string }) => {
   const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
   
   return `
@@ -143,19 +143,11 @@ const getAdminWaitlistTemplate = (data: { name: string; email: string; professio
                     </td>
                   </tr>
                   <tr>
-                    <td style="padding: 12px 0; border-bottom: 1px solid #1A2E35;">
+                    <td style="padding: 12px 0;">
                       <span style="color: #8B9CA3; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Profession</span>
                       <p style="margin: 4px 0 0; color: #FFFFFF; font-size: 16px; font-weight: 500;">${data.profession}</p>
                     </td>
                   </tr>
-                  ${data.phone ? `
-                  <tr>
-                    <td style="padding: 12px 0;">
-                      <span style="color: #8B9CA3; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Phone</span>
-                      <p style="margin: 4px 0 0; color: #FFFFFF; font-size: 16px; font-weight: 500;">${data.phone}</p>
-                    </td>
-                  </tr>
-                  ` : ""}
                 </table>
               </div>
             </td>
@@ -175,7 +167,7 @@ const getAdminWaitlistTemplate = (data: { name: string; email: string; professio
 };
 
 // Admin notification email template for feedback
-const getAdminFeedbackTemplate = (data: { name: string; email: string; message: string; phone?: string }) => {
+const getAdminFeedbackTemplate = (data: { name: string; email: string; message: string }) => {
   const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
   
   return `
@@ -220,14 +212,6 @@ const getAdminFeedbackTemplate = (data: { name: string; email: string; message: 
                       <p style="margin: 4px 0 0; color: #2FB7FF; font-size: 16px; font-weight: 500;">${data.email}</p>
                     </td>
                   </tr>
-                  ${data.phone ? `
-                  <tr>
-                    <td style="padding: 12px 0; border-bottom: 1px solid #1A2E35;">
-                      <span style="color: #8B9CA3; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Phone</span>
-                      <p style="margin: 4px 0 0; color: #FFFFFF; font-size: 16px; font-weight: 500;">${data.phone}</p>
-                    </td>
-                  </tr>
-                  ` : ""}
                   <tr>
                     <td style="padding: 12px 0;">
                       <span style="color: #8B9CA3; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Message</span>
@@ -274,7 +258,7 @@ export const sendUserConfirmationEmail = async (name: string, email: string) => 
 };
 
 // Send admin notification for waitlist
-export const sendAdminWaitlistEmail = async (data: { name: string; email: string; profession: string; phone?: string }) => {
+export const sendAdminWaitlistEmail = async (data: { name: string; email: string; profession: string }) => {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.log("SMTP not configured, skipping admin waitlist email");
     return;
@@ -295,7 +279,7 @@ export const sendAdminWaitlistEmail = async (data: { name: string; email: string
 };
 
 // Send admin notification for feedback
-export const sendAdminFeedbackEmail = async (data: { name: string; email: string; message: string; phone?: string }) => {
+export const sendAdminFeedbackEmail = async (data: { name: string; email: string; message: string }) => {
   if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.log("SMTP not configured, skipping admin feedback email");
     return;

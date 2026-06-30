@@ -9,7 +9,6 @@ const feedbackSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   message: z.string().min(10, "Message must be at least 10 characters"),
-  phone: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -25,7 +24,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, email, message, phone } = parsed.data;
+    const { name, email, message } = parsed.data;
 
     // Check rate limit using email as identifier
     const rateLimitResult = checkRateLimit(email, "feedback");
@@ -42,12 +41,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Send admin notification email (no user email for feedback)
-    await sendAdminFeedbackEmail({ name, email, message, phone }).catch(
+    await sendAdminFeedbackEmail({ name, email, message }).catch(
       (err) => console.error("Admin email error:", err)
     );
 
     // Save to SheetDB
-    await sendFeedbackToSheet({ name, email, message, phone }).catch(
+    await sendFeedbackToSheet({ name, email, message }).catch(
       (err) => console.error("SheetDB error:", err)
     );
 

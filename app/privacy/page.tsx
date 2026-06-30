@@ -53,7 +53,7 @@ export default function PrivacyPolicy() {
                   </p>
                   <ul className="list-disc list-inside mt-2 space-y-1">
                     <li>Name and email address (when submitting feedback or joining our waitlist)</li>
-                    <li>Profession and phone number (when joining the Windows beta waitlist)</li>
+                    <li>Profession (when joining the Windows beta waitlist)</li>
                     <li>Any content you choose to share through our application</li>
                     <li>Communication content when you contact us for support</li>
                   </ul>

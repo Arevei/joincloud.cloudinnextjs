@@ -11,26 +11,6 @@ import { apiRequest } from "@/lib/queryClient";
 import { Download, Folder, Share2, Shield, Zap, HardDrive, Globe, Monitor, Send, Link2, UserX, Wifi, Bell, Users, Smartphone, QrCode, FolderOpen, Eye, Mail, MessageCircle, Headphones, Check } from "lucide-react";
 import { createContext, useContext } from "react";
 
-/* ── Spots-remaining counter (shared across all sections) ──── */
-const SpotsContext = createContext({ spots: 29, decrement: () => {} });
-function useSpotsRemaining() { return useContext(SpotsContext).spots; }
-function useSpotsDecrement() { return useContext(SpotsContext).decrement; }
-function SpotsProvider({ children }: { children: React.ReactNode }) {
-  const [spots, setSpots] = useState(29);
-  const decrement = useCallback(() => {
-    setSpots((s) => (s > 0 ? s - 1 : 0));
-  }, []);
-  return <SpotsContext.Provider value={{ spots, decrement }}>{children}</SpotsContext.Provider>;
-}
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-
 interface SpeedParticle {
   id: number;
   x: number;
@@ -183,7 +163,7 @@ function MouseSpeedEffect() {
 }
 /* ── Navbar spots badge ─────────────────────────────────────── */
 function NavSpotsCounter() {
-  const spots = useSpotsRemaining();
+  const spots = 47;
   return (
     <div
       className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full"
@@ -209,7 +189,7 @@ function NavSpotsCounter() {
 
 /* ── Spots banner (above waitlist form) ─────────────────────── */
 function SpotsCounterBanner() {
-  const spots = useSpotsRemaining();
+  const spots = 47;
   return (
     <div
       className="flex items-center justify-center gap-3 mb-6 py-3 px-5 rounded-xl mx-auto"
@@ -424,12 +404,11 @@ function buildNodeNetwork(w: number, h: number): { nodes: NetworkNode[]; edges: 
 
 function NodeNetwork() {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [dims, setDims] = useState(() => ({
-    w: typeof window !== 'undefined' ? window.innerWidth : 800,
-    h: typeof window !== 'undefined' ? window.innerHeight : 600,
-  }));
+  const [mounted, setMounted] = useState(false);
+  const [dims, setDims] = useState({ w: 800, h: 600 });
 
   useLayoutEffect(() => {
+    setMounted(true);
     const svg = svgRef.current;
     const section = svg?.parentElement;
     if (!section || !(section instanceof HTMLElement)) return;
@@ -467,6 +446,10 @@ function NodeNetwork() {
   const cy = dims.h / 2;
   /* Larger gradient radius + earlier fade to white on mobile so mesh reaches top/bottom of hero */
   const rGrad = Math.max(dims.w, dims.h) * (isMobile ? 0.85 : 0.72);
+
+  if (!mounted) {
+    return <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} aria-hidden="true" />;
+  }
 
   return (
     <svg
@@ -513,7 +496,7 @@ function NodeNetwork() {
 }
 
 function Hero({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
-  const spots = useSpotsRemaining();
+  const spots = 47;
   return (
     <section
       className="flex flex-col justify-center overflow-hidden"
@@ -1173,16 +1156,14 @@ function FeedbackSection() {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState<string | undefined>();
   const { toast } = useToast();
 
   const feedbackMutation = useMutation({
-    mutationFn: async (data: { message: string; name?: string; email?: string; phone?: string }) => {
+    mutationFn: async (data: { message: string; name?: string; email?: string }) => {
       return apiRequest("POST", "/api/feedback", {
         message: data.message,
         name: data.name,
         email: data.email,
-        phone: data.phone,
       });
     },
     onSuccess: () => {
@@ -1193,7 +1174,6 @@ function FeedbackSection() {
       setMessage("");
       setName("");
       setEmail("");
-      setPhone(undefined);
     },
     onError: () => {
       toast({
@@ -1211,7 +1191,6 @@ function FeedbackSection() {
       message: message.trim(),
       name: name.trim(),
       email: email.trim(),
-      phone: phone || undefined,
     });
   };
 
@@ -1307,23 +1286,19 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profession, setProfession] = useState("");
-  const [phone, setPhone] = useState<string | undefined>();
   const { toast } = useToast();
-  const decrementSpots = useSpotsDecrement();
   const [showWaitlistDownload, setShowWaitlistDownload] = useState(false);
 
   const waitlistMutation = useMutation({
-    mutationFn: async (data: { name: string; email: string; profession: string; phone?: string }) => {
+    mutationFn: async (data: { name: string; email: string; profession: string }) => {
       return apiRequest("POST", "/api/waitlist", {
         name: data.name,
         email: data.email,
         profession: data.profession,
-        phone: data.phone,
       });
     },
     onSuccess: () => {
       setShowWaitlistDownload(true);
-      decrementSpots();
       toast({
         title: "You're on the list!",
         description: "We'll notify you by email before JoinCloud officially launches.",
@@ -1331,7 +1306,6 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
       setName("");
       setEmail("");
       setProfession("");
-      setPhone(undefined);
     },
     onError: () => {
       toast({
@@ -1349,7 +1323,6 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
       name: name.trim(),
       email: email.trim(),
       profession,
-      phone: phone || undefined,
     });
   };
 
@@ -1851,7 +1824,6 @@ export default function Landing() {
   };
 
   return (
-    <SpotsProvider>
       <div className="min-h-screen bg-background">
         <Header onJoinWaitlistClick={handleJoinWaitlistClick} />
         <main>
@@ -1872,6 +1844,5 @@ export default function Landing() {
         </main>
         <Footer />
       </div>
-    </SpotsProvider>
   );
 }

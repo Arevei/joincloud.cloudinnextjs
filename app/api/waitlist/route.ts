@@ -9,7 +9,6 @@ const waitlistSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   profession: z.string().min(1, "Profession is required"),
-  phone: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -25,7 +24,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, email, profession, phone } = parsed.data;
+    const { name, email, profession } = parsed.data;
 
     // Check rate limit using email as identifier
     const rateLimitResult = checkRateLimit(email, "waitlist");
@@ -47,12 +46,12 @@ export async function POST(request: NextRequest) {
     );
 
     // Send admin notification email
-    await sendAdminWaitlistEmail({ name, email, profession, phone }).catch(
+    await sendAdminWaitlistEmail({ name, email, profession }).catch(
       (err) => console.error("Admin email error:", err)
     );
 
     // Save to SheetDB
-    await sendWaitlistToSheet({ name, email, profession, phone }).catch(
+    await sendWaitlistToSheet({ name, email, profession }).catch(
       (err) => console.error("SheetDB error:", err)
     );
 
