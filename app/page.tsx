@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { EmailLink } from "@/components/email-link";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -1567,8 +1568,9 @@ function SupportSection() {
           Reach us by email, WhatsApp, or in-app chat.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a
-            href="mailto:info@joincloud.in"
+          <EmailLink
+            to="info@joincloud.in"
+            subject="JoinCloud Inquiry"
             className="flex items-center gap-3 px-6 py-4 rounded-xl bg-card border border-border hover:border-primary/50 hover:bg-card/80 transition-all duration-300 group"
           >
             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -1578,7 +1580,7 @@ function SupportSection() {
               <p className="text-sm text-muted-foreground">Email</p>
               <p className="text-foreground font-medium">info@joincloud.in</p>
             </div>
-          </a>
+          </EmailLink>
           <a
             href="https://wa.me/919625440855"
             target="_blank"
@@ -1801,7 +1803,7 @@ function Footer() {
           {' · '}
           <a href="/terms" className="hover:text-primary transition-colors" data-testid="link-terms">Terms</a>
           {' · '}
-          <a href="mailto:info@joincloud.in" className="hover:text-primary transition-colors" data-testid="link-support">Support</a>
+          <EmailLink to="info@joincloud.in" subject="JoinCloud Support" className="hover:text-primary transition-colors" data-testid="link-support">Support</EmailLink>
         </p>
         <p className="text-xs text-muted-foreground/80">
           Your files. Your cloud. Your control.
