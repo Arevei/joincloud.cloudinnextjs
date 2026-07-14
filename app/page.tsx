@@ -561,14 +561,14 @@ function Hero({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
           <EmailLink
             to="info@joincloud.in"
             subject="Book a JoinCloud Demo"
-            className="shrink-0 hover:text-white transition-colors duration-150"
+            className="shrink-0 text-white transition-colors duration-150 border"
             style={{
-              color: '#8B9CA3',
+              color: 'white',
               fontSize: '14px',
               textDecoration: 'none',
               padding: '12px 24px',
               borderRadius: '99px',
-              border: '1px solid rgba(47,183,255,0.25)',
+              border: '1px solid #fffff',
             }}
           >
             Book a Demo
