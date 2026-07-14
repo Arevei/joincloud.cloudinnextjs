@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { EmailLink } from "@/components/email-link";
 import { useToast } from "@/hooks/use-toast";
+import { QueryClientProviderWrapper } from "@/app/queryclientprovider";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Download, Folder, Share2, Shield, Zap, HardDrive, Globe, Monitor, Send, Link2, Mail, MessageCircle, Headphones, Check, FlaskConical, Heart, Scale, Landmark, Building2, User, Server, Lock, Network } from "lucide-react";
