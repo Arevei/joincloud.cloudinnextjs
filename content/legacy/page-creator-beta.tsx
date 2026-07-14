@@ -10,32 +10,8 @@ import { EmailLink } from "@/components/email-link";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Download, Folder, Share2, Shield, Zap, HardDrive, Globe, Monitor, Send, Link2, Mail, MessageCircle, Headphones, Check, FlaskConical, Heart, Scale, Landmark, Building2, User, Server, Lock, Network } from "lucide-react";
+import { Download, Folder, Share2, Shield, Zap, HardDrive, Globe, Monitor, Send, Link2, UserX, Wifi, Bell, Users, Smartphone, QrCode, FolderOpen, Eye, Mail, MessageCircle, Headphones, Check } from "lucide-react";
 import { createContext, useContext } from "react";
-
-/**
- * Section visibility — flip a flag to `true` to restore archived sections.
- * Legacy implementations live in content/legacy/page-creator-beta.tsx
- */
-const SECTION_VISIBILITY = {
-  trustBanner: true,
-  problem: true,
-  oldVsJoinCloud: false,   // Creator workflow — misaligned with DeepTech positioning
-  ourStory: false,         // Founder story — replaced by Vision
-  solution: true,
-  features: true,
-  whoItsFor: true,
-  howItWorks: true,
-  comparison: true,
-  security: true,
-  vision: true,
-  pricing: false,          // Not part of new positioning
-  calculator: false,       // Creator upload-waste tool
-  waitlist: true,
-  feedback: false,         // Lower priority during repositioning
-  support: true,
-  navSpotsCounter: false,  // Beta urgency — not aligned with infrastructure positioning
-} as const;
 
 interface SpeedParticle {
   id: number;
@@ -290,11 +266,10 @@ function Header({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
             aria-label="Primary"
           >
             {[
-              { label: 'Features',     href: '#features',     testId: 'link-features' },
-              { label: 'How It Works', href: '#how-it-works', testId: 'link-how-it-works' },
-              { label: 'Why JoinCloud', href: '#product',      testId: '' },
-              { label: 'Security',     href: '#security',     testId: 'link-security' },
-              // { label: 'Calculator',  href: '#calculator',  testId: 'link-calculator' }, // legacy — creator beta
+              { label: 'Features',    href: '#features',    testId: 'link-features' },
+              { label: 'How It Works',href: '#how-it-works',testId: 'link-how-it-works' },
+              { label: 'Product',     href: '#product',     testId: '' },
+              { label: 'Calculator',  href: '#calculator',  testId: 'link-calculator' },
               // { label: 'Blog',        href: '/blog',        testId: 'link-blog' },
             ].map((link) => (
               <a
@@ -311,7 +286,7 @@ function Header({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
 
           {/* Right side actions */}
           <div className="ml-auto shrink-0 z-10 flex items-center" style={{ gap: '12px' }}>
-            {SECTION_VISIBILITY.navSpotsCounter && <NavSpotsCounter />}
+            <NavSpotsCounter />
             <button
               onClick={onJoinWaitlistClick}
               data-testid="button-join-waitlist-header"
@@ -327,7 +302,7 @@ function Header({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
                 letterSpacing: '0.01em',
               }}
             >
-              Start Free
+              Get Beta Access
             </button>
           </div>
 
@@ -523,6 +498,7 @@ function NodeNetwork() {
 }
 
 function Hero({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
+  const spots = 47;
   return (
     <section
       className="flex flex-col justify-center overflow-hidden"
@@ -534,80 +510,45 @@ function Hero({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
 
         {/* Eyebrow */}
         <p style={{ color: '#2FB7FF', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '14px' }}>
-          Research based DeepTech Project · joincloud.cloud
+          By creator, for creators - Private Beta · {spots} spots remaining
         </p>
 
         {/* Headline */}
         <h1 style={{ fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '20px' }}>
-          <span style={{ color: '#FFFFFF', display: 'block' }}>Your Cloud. Your Data.</span>
-          <span style={{ color: '#2FB7FF', display: 'block' }} className="text-glow">Your Rules.</span>
+          <span style={{ color: '#FFFFFF', display: 'block' }}>Stop Uploading.</span>
+          <span style={{ color: '#2FB7FF', display: 'block' }} className="text-glow">Start Creating.</span>
         </h1>
 
         {/* Subheadline */}
-        <p style={{ color: '#8B9CA3', fontSize: '16px', lineHeight: 1.7, maxWidth: '560px', marginBottom: '32px' }}>
-          JoinCloud transforms your computer, NAS, or server into your own secure cloud. Store, access, and share files anywhere—without uploading your data to third-party servers.
+        <p style={{ color: '#8B9CA3', fontSize: '16px', lineHeight: 1.7, maxWidth: '520px', marginBottom: '32px' }}>
+          Send footage to your editor the moment you stop recording. No upload. No wait. Your files never leave your system until you choose to share them.
         </p>
 
         {/* CTA row */}
-        <div className="flex flex-row flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-x-1 gap-y-2">
           <button
             onClick={onJoinWaitlistClick}
             data-testid="button-get-early-access"
             className="cta-btn shrink-0"
             style={{ background: '#2FB7FF', color: '#000405', fontWeight: 700, fontSize: '14px', padding: '12px 28px', borderRadius: '99px' }}
           >
-            Start Free
+            Get Beta Access
           </button>
-          <EmailLink
-            to="info@joincloud.in"
-            subject="Book a JoinCloud Demo"
-            className="shrink-0 hover:text-white transition-colors duration-150"
-            style={{
-              color: '#8B9CA3',
-              fontSize: '14px',
-              textDecoration: 'none',
-              padding: '12px 24px',
-              borderRadius: '99px',
-              border: '1px solid rgba(47,183,255,0.25)',
-            }}
-          >
-            Book a Demo
-          </EmailLink>
-        </div>
-
-        {/* Secondary link */}
-        <div className="flex items-center justify-center gap-2 flex-wrap" style={{ marginTop: '16px' }}>
+          <span style={{ color: '#3C5056', fontSize: '13px', padding: '0 4px' }}>·</span>
           <a
             href="#how-it-works"
             className="hover:text-white transition-colors duration-150"
-            style={{ color: '#8B9CA3', fontSize: '13px', textDecoration: 'none' }}
+            style={{ color: '#8B9CA3', fontSize: '13px', textDecoration: 'none', whiteSpace: 'nowrap' }}
           >
             See how it works ↓
           </a>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function TrustBanner() {
-  const items = [
-    'Your files never need to leave your infrastructure.',
-    'No vendor lock-in.',
-    'No forced cloud storage.',
-    'No hidden data collection.',
-  ];
-
-  return (
-    <section className="border-t border-[#001C25] bg-[#00080A] px-5 py-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-          {items.map((item) => (
-            <div key={item} className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-primary shrink-0" />
-              <span className="text-[13px] text-[#8B9CA3] font-medium">{item}</span>
-            </div>
-          ))}
+        {/* Social proof */}
+        <div className="flex items-center justify-center gap-2 flex-wrap" style={{ marginTop: '16px' }}>
+          <span style={{ color: '#3C5056', fontSize: '12px' }}>
+            50 creators in private beta 
+          </span>
         </div>
       </div>
     </section>
@@ -615,36 +556,106 @@ function TrustBanner() {
 }
 
 function ProblemSection() {
-  const points = [
-    'Whether it\'s cloud drives, messaging apps, or collaboration tools, your information is copied onto servers you don\'t own.',
-    'For individuals this means less privacy.',
-    'For businesses it means compliance risks, security concerns, and increasing storage costs.',
+  const floatingCards: { label: string; icon: string; bg: string; top: string; left?: string; right?: string; rotate: string; delay: string; size: string }[] = [
+    // Row 1 — purple, lg, mirrored 5deg
+    { label: 'Done Shooting', icon: '🎬', bg: '#7C3AED', top: '4%',  left: '4%',  rotate: '-5deg', delay: '0s',   size: 'lg' },
+    { label: 'Changes 1',     icon: '📝', bg: '#7C3AED', top: '4%',  right: '4%', rotate: '5deg',  delay: '0.3s', size: 'lg' },
+    // Row 2 — teal, lg, mirrored 3deg
+    { label: 'Sharing with team', icon: '👥', bg: '#0E7490', top: '24%', left: '2%',  rotate: '3deg',  delay: '0.8s', size: 'lg' },
+    { label: 'Upload again...',   icon: '🔁', bg: '#0E7490', top: '24%', right: '2%', rotate: '-3deg', delay: '1.1s', size: 'lg' },
+    // Row 3 — dark red / dark red, md, mirrored 4deg
+    { label: 'Wasted upload time',  icon: '🕐', bg: '#7F1D1D', top: '46%', left: '3%',  rotate: '-4deg', delay: '1.6s', size: 'md' },
+    { label: 'Editing complete',    icon: '✂️', bg: '#7F1D1D', top: '46%', right: '3%', rotate: '4deg',  delay: '1.9s', size: 'md' },
+    // Row 4 — dark slate, sm, mirrored 3deg
+    { label: 'Waiting for upload...', icon: '⏳', bg: '#1E293B', top: '66%', left: '6%',  rotate: '3deg',  delay: '2.4s', size: 'sm' },
+    { label: 'Changes 2',            icon: '📝', bg: '#1E293B', top: '66%', right: '6%', rotate: '-3deg', delay: '2.7s', size: 'sm' },
+    // Row 5 — crimson, lg, mirrored 4deg
+    { label: 'FINAL_FINAL',  icon: '😤', bg: '#9F1239', top: '84%', left: '8%',  rotate: '4deg',  delay: '3.2s', size: 'lg' },
+    { label: 'Upload again!!', icon: '🔁', bg: '#9F1239', top: '84%', right: '8%', rotate: '-4deg', delay: '3.5s', size: 'lg' },
   ];
 
   return (
     <section className="border-t border-[#001C25] bg-[#000405] px-5 py-16 md:py-24 overflow-hidden">
-      <div className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-[10px] font-bold uppercase tracking-[0.18em] text-[#2FB7FF] bg-[#2FB7FF]/10 px-3 py-1 rounded-full mb-4">
-          The problem
-        </span>
-        <h2 className="text-[clamp(28px,4vw,40px)] font-extrabold tracking-[-0.03em] text-foreground leading-[1.15] mb-6">
-          The Internet Was Built Around Someone Else&apos;s Cloud.
-        </h2>
-        <p className="text-[#8B9CA3] text-[15px] md:text-[16px] leading-relaxed mb-8">
-          Every time you upload a file, you&apos;re trusting another company with your data.
-        </p>
-        <div className="space-y-4 text-left max-w-2xl mx-auto mb-8">
-          {points.map((point) => (
-            <div key={point} className="flex items-start gap-3 p-4 rounded-xl border border-[#001C25] bg-[#00080A]">
-              <div className="w-2 h-2 rounded-full bg-[#EF4444] shrink-0 mt-2" />
-              <p className="text-[#8B9CA3] text-[14px] leading-relaxed">{point}</p>
+      <style>{`
+        @keyframes problemFloat {
+          0%, 100% { transform: translate(0, 0) rotate(var(--r)); }
+          50% { transform: translate(0, -10px) rotate(var(--r)); }
+        }
+        .float-card {
+          animation: problemFloat 4s ease-in-out infinite;
+          animation-delay: var(--d);
+        }
+      `}</style>
+
+      {/* Mobile: stacked layout */}
+      <div className="md:hidden max-w-[400px] mx-auto">
+        <div className="text-center mb-8">
+          <span className="inline-block text-[10px] font-bold uppercase tracking-[0.18em] text-[#2FB7FF] bg-[#2FB7FF]/10 px-3 py-1 rounded-full mb-4">
+            Why this exists
+          </span>
+          <h2 className="text-[28px] font-extrabold tracking-[-0.03em] text-foreground leading-[1.15]">
+            Every creative knows this loop.
+          </h2>
+        </div>
+        <div className="flex flex-wrap gap-2 justify-center">
+          {floatingCards.map((card) => (
+            <div
+              key={card.label}
+              className="float-card rounded-xl px-3 py-2 flex items-center gap-2"
+              style={{ background: card.bg, '--r': card.rotate, '--d': card.delay } as React.CSSProperties}
+            >
+              <span className="text-base">{card.icon}</span>
+              <span className="text-white text-[12px] font-medium whitespace-nowrap">{card.label}</span>
             </div>
           ))}
         </div>
-        <p className="text-foreground text-[16px] md:text-[18px] font-medium leading-relaxed">
-          You shouldn&apos;t have to choose between convenience and control.
-        </p>
+
       </div>
+
+      {/* Desktop: floating cards around center title */}
+      <div className="hidden md:block max-w-[1100px] mx-auto relative" style={{ height: '520px' }}>
+        {/* Center title */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-[#0A1214] border border-[#1A2E35] rounded-2xl px-10 py-12 text-center w-[340px]"
+          style={{ boxShadow: '0 0 80px rgba(47,183,255,0.06)' }}
+        >
+          <span className="inline-block text-[10px] font-bold uppercase tracking-[0.18em] text-[#2FB7FF] bg-[#2FB7FF]/10 px-3 py-1 rounded-full mb-4">
+            Why this exists
+          </span>
+          <h2 className="text-[32px] font-extrabold tracking-[-0.03em] text-foreground leading-[1.15]">
+            Every creative knows this loop.
+          </h2>
+          <p className="text-[#8B9CA3] text-[13px] leading-relaxed mt-3">
+            You create. Then the real work begins, not the creative kind.
+          </p>
+        </div>
+
+        {/* Floating cards */}
+        {floatingCards.map((card) => {
+          const padding = card.size === 'lg' ? 'px-5 py-3' : card.size === 'md' ? 'px-4 py-2.5' : 'px-3 py-2';
+          const textSize = card.size === 'lg' ? 'text-[14px]' : card.size === 'md' ? 'text-[13px]' : 'text-[12px]';
+          const iconSize = card.size === 'lg' ? 'text-xl' : 'text-base';
+          return (
+            <div
+              key={card.label}
+              className={`float-card absolute rounded-xl ${padding} flex items-center gap-2.5 cursor-default select-none`}
+              style={{
+                background: card.bg,
+                top: card.top,
+                ...(card.left ? { left: card.left } : {}),
+                ...(card.right ? { right: card.right } : {}),
+                '--r': card.rotate,
+                '--d': card.delay,
+                boxShadow: `0 8px 30px ${card.bg}44`,
+              } as React.CSSProperties}
+            >
+              <span className={iconSize}>{card.icon}</span>
+              <span className={`text-white font-semibold ${textSize} whitespace-nowrap`}>{card.label}</span>
+            </div>
+          );
+        })}
+      </div>
+
     </section>
   );
 }
@@ -905,19 +916,22 @@ function OurStorySection() {
 function WhatJoinCloudIs() {
   const pillars = [
     {
-      icon: Server,
-      title: "No complicated networking",
-      description: "No manual port forwarding. Install and your device becomes reachable securely from anywhere.",
+      icon: Zap,
+      title: "Fast",
+      description:
+        "Files shared directly from your system. No cloud upload first bottleneck. Files move from host to recipient. or instantly as dependent on user network speed.",
     },
     {
       icon: Shield,
-      title: "No cloud migration",
-      description: "Your storage stays where it belongs—with you. Files remain on infrastructure you own.",
+      title: "Private",
+      description:
+        "Your files never stored on third-party server for mining. Nothing is accessible until you choose to share it. System files stay completely isolated from JoinCloud. JoinCloud allows only Outbound connection.",
     },
     {
-      icon: Zap,
-      title: "Minutes, not months",
-      description: "Build your own cloud infrastructure without networking expertise. Install and start in minutes.",
+      icon: HardDrive,
+      title: "Easy",
+      description:
+        "No technical complexity, Instant sharing links, revoke access all from one place. Simple UX, Fast realtime collaboration on files.",
     },
   ];
 
@@ -927,7 +941,7 @@ function WhatJoinCloudIs() {
       <div className="relative w-full" style={{ minHeight: '420px' }}>
         <Image
           src="/constellation.jpg"
-          alt="Personal cloud network"
+          alt="Night sky with constellations"
           fill
           className="object-cover object-center"
           loading="lazy"
@@ -938,15 +952,12 @@ function WhatJoinCloudIs() {
 
         {/* Text overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2FB7FF] mb-3">The solution</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2FB7FF] mb-3">The product</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 max-w-3xl leading-tight drop-shadow-lg">
-            Meet JoinCloud
+            Turn your system storage into a personal cloud.
           </h2>
-          <p className="text-white/70 text-sm md:text-lg leading-relaxed max-w-2xl drop-shadow mb-3">
-            JoinCloud lets you create your own personal cloud using hardware you already own.
-          </p>
-          <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-2xl drop-shadow">
-            Install JoinCloud on your computer or private server and instantly access your files securely from anywhere.
+          <p className="text-white/70 text-sm md:text-lg leading-relaxed max-w-2xl drop-shadow">
+            Add files once. Share from one place. Collaborate with your team. Preview content in the browser before downloading, on any device, anywhere.
           </p>
         </div>
       </div>
@@ -977,31 +988,32 @@ function WhatJoinCloudIs() {
             );
           })}
         </div>
-        <p className="text-center text-foreground text-lg font-medium mt-10">
-          Your storage stays where it belongs. <span className="text-primary">With you.</span>
-        </p>
       </div>
     </section>
   );
 }
 
 function Features() {
-  const items: { icon: typeof Shield; title: string; description: string }[] = [
-    { icon: Shield, title: "Your Data Never Leaves Your Infrastructure", description: "Files remain on your device. Only authorized users can access them." },
-    { icon: Share2, title: "Private Data Infrastructure", description: "Share large files securely without copying them to external cloud storage." },
-    { icon: Globe, title: "Access Anywhere", description: "Reach your files from home, office, or while traveling." },
-    { icon: HardDrive, title: "Zero Vendor Lock-In", description: "Your storage belongs to you. Move whenever you want." },
-    { icon: Building2, title: "Enterprise Ready", description: "Ideal for organizations that need complete ownership over their data." },
-    { icon: Zap, title: "Simple Deployment", description: "No networking expertise required. Install and start in minutes." },
+  const items: { icon: typeof Eye; title: string; description: string }[] = [
+    { icon: Eye, title: "4K Preview", description: "Recipients preview high-res video and images directly in the browser. No download required." },
+    { icon: Link2, title: "Link Sharing", description: "Generate a shareable link or QR code for any file or folder. One click. Done." },
+    { icon: Smartphone, title: "Multi-Device Access", description: "Open your cloud on any device, phone, tablet, laptop, any browser." },
+    { icon: FolderOpen, title: "Built-in File Manager", description: "Organize and manage everything within JoinCloud. Clean and structured." },
+    { icon: Monitor, title: "Device Management", description: "Approve devices, see connection history, revoke access instantly." },
+    { icon: Share2, title: "Global Sharing", description: "Share with anyone, anywhere. No server upload required." },
+    { icon: Globe, title: "Remote Cloud Access", description: "Control your personal cloud from any browser, anywhere." },
+    { icon: Zap, title: "No File Size Limits", description: "Share without worrying about size." },
+    { icon: UserX, title: "No Signup for Recipients", description: "They just open the link and preview." },
+    { icon: QrCode, title: "QR Code Sharing", description: "Instant access. Perfect for nearby devices." },
   ];
 
   return (
     <section id="features" className="py-24 px-6 bg-[#000405] border-t border-[#001C25]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Personal Cloud Network</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">v0.3.4 Beta - Available now</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Build your own cloud infrastructure.
+            Everything you need. Nothing you don&apos;t.
           </h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1031,19 +1043,19 @@ function Features() {
 
 function HowItWorks() {
   const steps = [
-    { icon: Download, title: "Install", description: "Install JoinCloud on your device." },
-    { icon: Network, title: "Connect", description: "Your device becomes your private cloud." },
-    { icon: Globe, title: "Access", description: "Reach your files securely from anywhere in the world." },
-    { icon: Link2, title: "Share", description: "Generate secure links without uploading your files to third-party storage." },
+    { icon: Download, title: "Install JoinCloud", description: "Download and launch in seconds. No complex setup." },
+    { icon: Folder, title: "Add your files", description: "Select any file. It stays on your system, add is instant." },
+    { icon: Link2, title: "Create a share link", description: "Generate a shareable link or QR code in one click." },
+    { icon: Globe, title: "Access anywhere", description: "Open on any device. Preview in browser. Download only the final." },
   ];
 
   return (
     <section id="how-it-works" className="py-24 px-6 bg-[#00080A] border-t border-[#001C25]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">How it works</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Setup</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Your personal cloud in four steps.
+            Install. Add. Share. Done.
           </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1069,39 +1081,29 @@ function HowItWorks() {
 }
 
 function WhoItsFor() {
-  const audience: { icon: typeof FlaskConical; title: string; description: string }[] = [
-    { icon: FlaskConical, title: "Researchers", description: "Protect confidential research and datasets." },
-    { icon: Heart, title: "Healthcare", description: "Maintain sensitive patient information within your own infrastructure." },
-    { icon: Scale, title: "Legal Firms", description: "Share confidential documents securely." },
-    { icon: Landmark, title: "Government & Defense", description: "Maintain full control over sensitive files." },
-    { icon: Building2, title: "Businesses", description: "Reduce cloud costs while maintaining complete ownership." },
-    { icon: User, title: "Privacy-Conscious Individuals", description: "Build your own cloud without sacrificing usability." },
+  const audience = [
+    "Video editors moving files between laptop, PC, mobile, and tablet",
+    "Creators and production teams who share large files daily",
+    "Anyone who reviews and revises files repeatedly before a final download",
+    "Studios and offices who want real-time collaboration without cloud dependency",
+    "Research or privacy-focused organizations that can't route files through external servers",
+    "Anyone who wants one home for all their files, on their own network, under their own control",
   ];
 
   return (
     <section className="py-24 px-6 bg-[#000405] border-t border-[#001C25]">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-14">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Who it&apos;s for</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Built for those who own their data.
-          </h2>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {audience.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <Card key={index} className="bg-[#00080A] border-[#001C25] hover:border-primary/30 transition-all duration-200">
-                <CardContent className="p-6">
-                  <div className="w-10 h-10 rounded-xl bg-primary/15 border border-primary/20 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
+      <div className="max-w-4xl mx-auto text-center">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Built for</p>
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10">
+          If you move large files for work, this is for you.
+        </h2>
+        <div className="space-y-4 max-w-2xl mx-auto">
+          {audience.map((line, index) => (
+            <div key={index} className="flex items-start gap-3 text-left p-4 rounded-xl border border-[#001C25] bg-[#00080A] hover:border-primary/30 transition-colors">
+              <div className="w-2 h-2 rounded-full bg-primary shrink-0 mt-2" />
+              <p className="text-base text-muted-foreground leading-relaxed">{line}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1110,29 +1112,30 @@ function WhoItsFor() {
 
 function ComparisonTable() {
   const rows = [
-    { label: "Data storage", old: "Files stored on provider servers", jc: "Files stay on your infrastructure" },
-    { label: "Cost model", old: "Monthly storage fees", jc: "Use your own storage" },
-    { label: "Ownership", old: "Vendor lock-in", jc: "Full ownership" },
-    { label: "Privacy", old: "Limited privacy", jc: "Complete control" },
-    { label: "Accessibility", old: "Internet-dependent storage", jc: "Your storage, accessible anywhere" },
-    { label: "Control", old: "Provider controls data", jc: "You control everything" },
+    { label: "Share time (1-5 GB)", old: "1-10 hours", jc: "Few minutes" },
+    { label: "Review without downloading", old: "Chaotic", jc: "Browser preview, always" },
+    { label: "File copies at end of project", old: "Multiple, both sides", jc: "One, the final" },
+    { label: '"Which version is current?"', old: "Nobody knows", jc: "The link always is" },
+    { label: "Feedback process", old: "Slow", jc: "Realtime" },
+    { label: "Files saves on third-party server", old: "Always", jc: "Never" },
+    { label: "Recipient needs an account", old: "Sometimes", jc: "Never" },
   ];
 
   return (
     <section id="product" className="py-24 px-6 bg-[#00080A] border-t border-[#001C25]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Why JoinCloud</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Side by side</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            Traditional Cloud vs. JoinCloud.
+            Old way vs. JoinCloud.
           </h2>
         </div>
         <div className="overflow-x-auto rounded-xl border border-[#001C25] bg-[#000405]">
           <table className="w-full text-sm text-left min-w-[520px]">
             <thead>
               <tr className="border-b border-[#001C25]">
-                <th className="p-4 font-semibold text-muted-foreground w-[30%]" />
-                <th className="p-4 font-semibold text-foreground">Traditional Cloud</th>
+                <th className="p-4 font-semibold text-muted-foreground w-[40%]" />
+                <th className="p-4 font-semibold text-foreground">Old Way</th>
                 <th className="p-4 font-semibold text-primary">JoinCloud</th>
               </tr>
             </thead>
@@ -1146,57 +1149,6 @@ function ComparisonTable() {
               ))}
             </tbody>
           </table>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SecuritySection() {
-  return (
-    <section id="security" className="py-24 px-6 bg-[#000405] border-t border-[#001C25]">
-      <div className="max-w-3xl mx-auto text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 mb-6">
-          <Lock className="w-7 h-7 text-primary" />
-        </div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Security</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-          Privacy by Architecture
-        </h2>
-        <div className="space-y-5 text-[#8B9CA3] text-[15px] md:text-[16px] leading-relaxed text-left max-w-2xl mx-auto">
-          <p>
-            JoinCloud doesn&apos;t protect your privacy through promises. It protects your privacy through architecture.
-          </p>
-          <p>
-            Your files remain on devices you own. There is no centralized storage to mine, analyze, or monetize your data.
-          </p>
-          <p className="text-foreground font-medium text-center pt-2">
-            Because the safest copy of your data is the one that never leaves your infrastructure.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function VisionSection() {
-  return (
-    <section id="vision" className="py-24 px-6 bg-[#00080A] border-t border-[#001C25]">
-      <div className="max-w-3xl mx-auto text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Vision</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-          Building the Personal Cloud Network
-        </h2>
-        <div className="space-y-5 text-[#8B9CA3] text-[15px] md:text-[16px] leading-relaxed">
-          <p>
-            We believe cloud computing shouldn&apos;t mean someone else&apos;s computer.
-          </p>
-          <p>
-            Our vision is to create a global personal cloud network where individuals and organizations retain complete ownership of their data while enjoying the same convenience as modern cloud services.
-          </p>
-          <p className="text-foreground font-medium">
-            The future of cloud is decentralized, private, and owned by the people who create the data.
-          </p>
         </div>
       </div>
     </section>
@@ -1381,20 +1333,14 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
     <section id="waitlist" className="py-24 px-6 border-t border-[#001C25]" ref={waitlistRef as React.Ref<HTMLElement>}>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Get started</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Beta Early access</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Take Back Control of Your Data
+            Be one of the first 1,000.
           </h2>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-2">
-            Create your own secure cloud in minutes.
-          </p>
-          <p className="text-base text-muted-foreground max-w-xl mx-auto">
-            Own your infrastructure. Own your privacy.
-          </p>
         </div>
 
-        {/* Urgent spots counter — legacy creator beta */}
-        {SECTION_VISIBILITY.navSpotsCounter && <SpotsCounterBanner />}
+        {/* Urgent spots counter above form */}
+        <SpotsCounterBanner />
 
         <Card className="bg-[#00080A] border-[#001C25]">
           <CardContent className="p-8">
@@ -1440,12 +1386,10 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
                     <SelectValue placeholder="Select your profession" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#00080A] border-[#001C25]">
-                    <SelectItem value="Researcher">Researcher</SelectItem>
-                    <SelectItem value="Healthcare">Healthcare</SelectItem>
-                    <SelectItem value="Legal">Legal</SelectItem>
-                    <SelectItem value="Government & Defense">Government & Defense</SelectItem>
-                    <SelectItem value="Business">Business</SelectItem>
-                    <SelectItem value="Individual">Privacy-Conscious Individual</SelectItem>
+                    <SelectItem value="Student">Student</SelectItem>
+                    <SelectItem value="Creator">Creator</SelectItem>
+                    <SelectItem value="Working Professional">Working Professional</SelectItem>
+                    <SelectItem value="Video Editor">Video Editor</SelectItem>
                     <SelectItem value="Other">Other</SelectItem>
                   </SelectContent>
                 </Select>
@@ -1459,10 +1403,10 @@ function WaitlistSection({ waitlistRef }: { waitlistRef: React.RefObject<HTMLDiv
                 data-testid="button-submit-waitlist"
                 style={{ background: '#2FB7FF', color: '#000405', borderRadius: '99px' }}
               >
-                {waitlistMutation.isPending ? "Joining..." : "Start Free"}
+                {waitlistMutation.isPending ? "Joining..." : "Get Beta Access"}
               </Button>
               <p className="text-center text-[11px] text-muted-foreground pt-2">
-                No credit card required. Your data stays on your infrastructure.
+                No credit card required. Free trial, no strings attached.
               </p>
 
               {showWaitlistDownload && (
@@ -1853,8 +1797,8 @@ function Footer() {
           © 2026 JoinCloud by Vinay Shakyawar | Marketing Partner{' '}
           <a href="https://arevei.com" className="hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">Arevei.com</a>
           {' · '}
-          {/* <a href="#calculator" className="hover:text-primary transition-colors" data-testid="link-calculator">Calculator</a>
-          {' · '} */}
+          <a href="#calculator" className="hover:text-primary transition-colors" data-testid="link-calculator">Calculator</a>
+          {' · '}
           <a href="/privacy" className="hover:text-primary transition-colors" data-testid="link-privacy">Privacy Policy</a>
           {' · '}
           <a href="/terms" className="hover:text-primary transition-colors" data-testid="link-terms">Terms</a>
@@ -1862,7 +1806,7 @@ function Footer() {
           <EmailLink to="info@joincloud.in" subject="JoinCloud Support" className="hover:text-primary transition-colors" data-testid="link-support">Support</EmailLink>
         </p>
         <p className="text-xs text-muted-foreground/80">
-          Your Cloud. Your Data. Your Rules.
+          Your files. Your cloud. Your control.
         </p>
       </div>
     </footer>
@@ -1875,8 +1819,8 @@ export default function Landing() {
 
   const handleJoinWaitlistClick = () => {
     toast({
-      title: "Start your personal cloud",
-      description: "Share your email below and we'll help you get started with JoinCloud.",
+      title: "Join the JoinCloud waitlist",
+      description: "Share your email below and we'll notify you before JoinCloud officially launches.",
     });
     setTimeout(() => {
       waitlistRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1888,22 +1832,19 @@ export default function Landing() {
         <Header onJoinWaitlistClick={handleJoinWaitlistClick} />
         <main>
           <Hero onJoinWaitlistClick={handleJoinWaitlistClick} />
-          {SECTION_VISIBILITY.trustBanner && <TrustBanner />}
-          {SECTION_VISIBILITY.problem && <ProblemSection />}
-          {SECTION_VISIBILITY.oldVsJoinCloud && <OldVsJoinCloudSection />}
-          {SECTION_VISIBILITY.ourStory && <OurStorySection />}
-          {SECTION_VISIBILITY.solution && <WhatJoinCloudIs />}
-          {SECTION_VISIBILITY.howItWorks && <HowItWorks />}
-          {SECTION_VISIBILITY.features && <Features />}
-          {SECTION_VISIBILITY.whoItsFor && <WhoItsFor />}
-          {SECTION_VISIBILITY.comparison && <ComparisonTable />}
-          {SECTION_VISIBILITY.security && <SecuritySection />}
-          {SECTION_VISIBILITY.vision && <VisionSection />}
-          {SECTION_VISIBILITY.pricing && <PricingSection />}
-          {SECTION_VISIBILITY.calculator && <UploadWasteCalculator />}
-          {SECTION_VISIBILITY.waitlist && <WaitlistSection waitlistRef={waitlistRef} />}
-          {SECTION_VISIBILITY.feedback && <FeedbackSection />}
-          {SECTION_VISIBILITY.support && <SupportSection />}
+          <ProblemSection />
+          <OldVsJoinCloudSection />
+          <OurStorySection />
+          <WhatJoinCloudIs />
+          <Features />
+          <WhoItsFor />
+          <HowItWorks />
+          <ComparisonTable />
+          <PricingSection />
+          <UploadWasteCalculator />
+          <WaitlistSection waitlistRef={waitlistRef} />
+          <FeedbackSection />
+          <SupportSection />
         </main>
         <Footer />
       </div>
