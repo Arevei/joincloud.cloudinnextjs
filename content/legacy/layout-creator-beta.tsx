@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 // import "./globals.css";
-import { QueryClientProviderWrapper } from "./queryclientprovider";
+import { QueryClientProviderWrapper } from "../../app/queryclientprovider";
 
 const inter = Inter({
   variable: "--font-inter",
