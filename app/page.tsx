@@ -955,7 +955,7 @@ function WhatJoinCloudIs() {
       
 
       {/* Pillar cards */}
-      <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14 relative z-10 pb-20">
+      <div className="max-w-6xl mx-auto px-6 -mt-16 md:-mt-20 relative z-10 pb-20">
         <div className="grid md:grid-cols-3 gap-5">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
