@@ -952,8 +952,10 @@ function WhatJoinCloudIs() {
         </div>
       </div>
 
-      {/* Pillar cards — overlapping the image bottom */}
-      <div className="max-w-6xl mx-auto px-6 -mt-16 md:-mt-20 relative z-10 pb-20">
+      
+
+      {/* Pillar cards */}
+      <div className="max-w-6xl mx-auto px-6 mt-10 md:mt-14 relative z-10 pb-20">
         <div className="grid md:grid-cols-3 gap-5">
           {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
@@ -981,6 +983,25 @@ function WhatJoinCloudIs() {
         <p className="text-center text-foreground text-lg font-medium mt-10">
           Your storage stays where it belongs. <span className="text-primary">With you.</span>
         </p>
+        <div className="max-w-5xl mx-auto px-6 pt-10 md:pt-14 relative z-10">
+        <div className="overflow-hidden rounded-2xl border border-[#1A2E35] bg-[#000405] shadow-[0_0_50px_rgba(47,183,255,0.10)]">
+          <video
+            key="joincloud-active-video"
+            className="aspect-video h-full w-full object-cover"
+            controls
+            muted
+            autoPlay
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source
+              src="https://stream.mux.com/ZR6KBQtJG028VCectitLL3Ud00neFjF7p1Tc3gbvg83bY.m3u8?redundant_streams=true"
+              type="application/x-mpegURL"
+            />
+          </video>
+        </div>
+      </div>
       </div>
     </section>
   );
