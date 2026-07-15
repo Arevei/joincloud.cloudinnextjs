@@ -546,8 +546,7 @@ function Hero({ onJoinWaitlistClick }: { onJoinWaitlistClick: () => void }) {
 
         {/* Subheadline */}
         <p style={{ color: '#8B9CA3', fontSize: '16px', lineHeight: 1.7, maxWidth: '560px', marginBottom: '32px' }}>
-          JoinCloud transforms your computer, NAS, or server into your own secure cloud. Store, access, and share files anywhere—without uploading your data to third-party servers.
-        </p>
+          JoinCloud transforms your computer into your own secure cloud. Store, access, and share files anywhere        </p>
 
         {/* CTA row */}
         <div className="flex flex-row flex-wrap items-center justify-center gap-3">
